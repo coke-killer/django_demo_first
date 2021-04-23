@@ -1,0 +1,82 @@
+{#继承标签必须放在文件开头#}
+{% extends "father.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>python wed application</title>
+</head>
+<body>
+<h1>{{ hello }}</h1>
+{#取出整个列表#}
+<h2>{{ views_list }}</h2>
+<h2>{{ views_list.0 }}</h2> {# 取出列表第一个元素 #}
+<h2>{{ views_list.1 }}</h2>{# 取出列表第二个元素#}
+{#根据键取出名字#}
+<h2>{{ views_dict.name }}</h2>
+<h2>{{ views_dict }}</h2>
+{# 过滤器 #}
+<h2>{{ name }}</h2>
+{#过滤器语法#}
+{#<h2>{{ name |length }}</h2>#}
+{#长度过长展示，截断的字符串将以 ... 结尾#}
+<h2>{{ li.0|truncatechars:4 }}</h2>
+<h2>{{ li.1|length }}</h2>
+<h2>{{ li.2|filesizeformat }}</h2>
+<h2>{{ li.3|date:"Y-m-d" }}</h2>
+{#Django 会自动对 views.py 传到HTML文件中的标签语法进行转义，令其语义失效,字符串安全不需要转译#}
+<h2>{{ li.4|safe }}</h2>
+{#if,else标签#}
+{% if condition > 90 and condition <= 100 %}
+    优秀
+{% elif condition > 80 and condition <= 90 %}
+    合格
+{% else %}
+    一边玩去
+{% endif %}
+<ul>
+    {% for view in view_list %}
+        <li>{{ view.value }}</li>
+        <li>{{ view }}</li>
+    {% endfor %}
+</ul>
+<ul>
+    {#    将被反向迭代#}
+    {% for view in view_list reversed %}
+        {#        <li>{{ view.value }}</li>#}
+        <li>{{ view }}</li>
+    {% endfor %}
+</ul>
+{% for k,v in view_dict.items %}
+    {{ k }}---{{ v }}
+    {#    {{ forloop.counter }}#}
+    {#    {{ forloop.counter0 }}#}
+    {#    {{ forloop.revcounter }}#}
+    {#    {{ forloop.revcounter0 }}#}
+    {#    {{ forloop.first }}#}
+    {{ forloop.last }}
+    {#    传过来参数为0时执行#}
+{% empty %}
+    空空如也～
+{% endfor %}
+{% ifequal user current_user %}
+    <h1>Welcome</h1>
+{% endifequal %}
+{#这是一个注释#}
+{#include标签允许模板中包含其他模板的内容#}
+{% include "index.html" %}
+{% load my_tags %}
+{#使用自定义过滤器#}
+{{ 11|my_filter:11 }}
+{#使用自定义标签#}
+{% my_tag1 11 22 33 %}
+{#使用语义化标签#}
+{#加载静态文件是添加标签名字为别名#}
+{% load static %}
+{% block mainbody %}
+    <p>继承了father.html 文件</p>
+    {% my_tag2 "zzz" "xxx" %}
+    菜鸟教程 <img src="{% static "images/img.png" %}" alt="runoob-logo">
+{% endblock %}
+</body>
+</html>

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from firstapp import views
+from . import testdb
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('fil/', views.fil),
     path('cycle', views.cycle),
     path('cycle_dict', views.cycle_dict),
-    path('welcome', views.if_equal)
+    path('welcome', views.if_equal),
+    path('testdb', testdb.testdb),
 ]

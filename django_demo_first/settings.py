@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'firstapp',
+    'TestModel',
 ]
 
 MIDDLEWARE = [
@@ -78,11 +79,15 @@ WSGI_APPLICATION = 'django_demo_first.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'django',  # 数据库名字
+        'HOST': '127.0.0.1',  # 本机地址
+        'PORT': 3306,
+        'USER': 'root',
+        'PASSWORD': 'yudongyue',
     }
 }
-
+# 配置好下一步，去与setting.py 同级目录下的__init__.py中引入模块进行配置
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
